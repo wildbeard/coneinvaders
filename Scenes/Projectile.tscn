@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://d3y1b4omg20gs"]
+
+[ext_resource type="Script" uid="uid://bkdll2tqajin0" path="res://Scripts/Scenes/Projectile.gd" id="1_k1cl8"]
+[ext_resource type="Texture2D" uid="uid://c2x8etafxgyve" path="res://Assets/Sprites/almighty.png" id="2_k1cl8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k1cl8"]
+size = Vector2(3.5, 15)
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_k1cl8")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.35, 1.5)
+texture = ExtResource("2_k1cl8")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_k1cl8")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
