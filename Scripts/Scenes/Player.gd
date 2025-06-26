@@ -11,6 +11,7 @@ const SPEED: float = 150.0
 const PROJECTILE_SCENE: PackedScene = preload("res://Scenes/Projectile.tscn")
 const BASE_TEXTURE = preload("res://Assets/Sprites/cudaW.png")
 const HIT_TEXTURE = preload("res://Assets/Sprites/cudaGasm.png")
+const BUNKER_HIT = preload("res://Assets/Sprites/cudaWTF.png")
 
 var hasProjectileOut: bool = false
 
@@ -35,26 +36,39 @@ func _physics_process(delta: float) -> void:
 func _shoot() -> void:
 	var projectile: Projectile = PROJECTILE_SCENE.instantiate()
 	var startingPos: Vector2
+	projectile.source = Projectile.SpawnSource.PLAYER
 	startingPos.x = global_position.x + sprite.texture.get_width() / 5.5
 	startingPos.y = global_position.y - 10
 
 	projectile.global_position = startingPos
-	projectile.out_of_bounds.connect(Callable(_on_projectile_out_of_bounds).bind(projectile), CONNECT_ONE_SHOT)
-	projectile.hit_enemy.connect(Callable(_on_projectile_hit).bind(projectile), CONNECT_ONE_SHOT)
+	projectile.projectile_hit.connect(Callable(_on_projectile_hit).bind(projectile), CONNECT_ONE_SHOT)
 	add_child(projectile)
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	player_hit.emit()
 
-func _on_projectile_hit(projectile: Projectile) -> void:
-	hasProjectileOut = false
-	projectile.queue_free()
+func _on_projectile_hit(target: Projectile.TargetHit, projectile: Projectile) -> void:
+	var texture: Texture
 
-func _on_projectile_out_of_bounds(projectile: Projectile) -> void:
+	if target == Projectile.TargetHit.ENEMY:
+		texture = HIT_TEXTURE
+		_enemy_hit()
+	elif target == Projectile.TargetHit.BUNKER:
+		texture = BUNKER_HIT
+		_bunker_hit()
+
+	if texture:
+		_set_sprite_texture(texture)
+		get_tree().create_timer(0.25).timeout.connect(Callable(_set_sprite_texture).bind(BASE_TEXTURE), CONNECT_ONE_SHOT)
+
 	hasProjectileOut = false
-	_set_sprite_texture(HIT_TEXTURE)
-	get_tree().create_timer(0.25).timeout.connect(Callable(_set_sprite_texture).bind(BASE_TEXTURE), CONNECT_ONE_SHOT)
 	projectile.queue_free()
 
 func _set_sprite_texture(texture: Texture) -> void:
 	sprite.texture = texture
+
+func _enemy_hit() -> void:
+	pass
+
+func _bunker_hit() -> void:
+	pass

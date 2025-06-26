@@ -1,0 +1,82 @@
+[gd_scene load_steps=8 format=3 uid="uid://cjur2du3p5op6"]
+
+[ext_resource type="Texture2D" uid="uid://can65pdoptvj8" path="res://Assets/Sprites/bunker/top_right_base.png" id="1_1lloq"]
+[ext_resource type="Script" uid="uid://dl3c3o0r72noq" path="res://Scripts/Scenes/Bunker.gd" id="1_jvn8g"]
+[ext_resource type="Texture2D" uid="uid://66me76j202b8" path="res://Assets/Sprites/bunker/bottom_right_base.png" id="2_jvn8g"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rcpel"]
+size = Vector2(16, 42.875)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wmp04"]
+size = Vector2(43, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0psqr"]
+size = Vector2(43, 19)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qqkwj"]
+size = Vector2(43, 19)
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_jvn8g")
+
+[node name="TopLeft" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 4
+collision_mask = 8
+
+[node name="sprite" type="Sprite2D" parent="TopLeft"]
+texture_filter = 1
+position = Vector2(1, -17)
+texture = ExtResource("1_1lloq")
+flip_h = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TopLeft"]
+position = Vector2(-21.5625, 8)
+rotation = -1.5708
+shape = SubResource("RectangleShape2D_rcpel")
+
+[node name="TopRight" type="Area2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(43, 0)
+collision_layer = 4
+collision_mask = 8
+
+[node name="sprite" type="Sprite2D" parent="TopRight"]
+texture_filter = 1
+position = Vector2(-44, -17)
+texture = ExtResource("1_1lloq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TopRight"]
+position = Vector2(-21.5, 8)
+shape = SubResource("RectangleShape2D_wmp04")
+
+[node name="BottomRight" type="Area2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(43, 0)
+collision_layer = 4
+collision_mask = 8
+
+[node name="sprite" type="Sprite2D" parent="BottomRight"]
+texture_filter = 1
+position = Vector2(-44, -17)
+texture = ExtResource("2_jvn8g")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BottomRight"]
+position = Vector2(-21.5, 25.5)
+shape = SubResource("RectangleShape2D_0psqr")
+
+[node name="BottomLeft" type="Area2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(43, 0)
+collision_layer = 4
+collision_mask = 8
+
+[node name="sprite" type="Sprite2D" parent="BottomLeft"]
+texture_filter = 1
+position = Vector2(-42, -17)
+texture = ExtResource("2_jvn8g")
+flip_h = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BottomLeft"]
+position = Vector2(-64.5, 25.5)
+shape = SubResource("RectangleShape2D_qqkwj")
