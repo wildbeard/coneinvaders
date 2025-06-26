@@ -16,13 +16,13 @@ size = Vector2(43, 19)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qqkwj"]
 size = Vector2(43, 19)
 
-[node name="Node2D" type="Node2D"]
+[node name="Bunker" type="Node2D"]
 script = ExtResource("1_jvn8g")
 
 [node name="TopLeft" type="Area2D" parent="."]
 unique_name_in_owner = true
-collision_layer = 4
-collision_mask = 8
+collision_layer = 8
+collision_mask = 2
 
 [node name="sprite" type="Sprite2D" parent="TopLeft"]
 texture_filter = 1
@@ -38,8 +38,8 @@ shape = SubResource("RectangleShape2D_rcpel")
 [node name="TopRight" type="Area2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(43, 0)
-collision_layer = 4
-collision_mask = 8
+collision_layer = 8
+collision_mask = 2
 
 [node name="sprite" type="Sprite2D" parent="TopRight"]
 texture_filter = 1
@@ -53,8 +53,8 @@ shape = SubResource("RectangleShape2D_wmp04")
 [node name="BottomRight" type="Area2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(43, 0)
-collision_layer = 4
-collision_mask = 8
+collision_layer = 8
+collision_mask = 2
 
 [node name="sprite" type="Sprite2D" parent="BottomRight"]
 texture_filter = 1
@@ -68,8 +68,8 @@ shape = SubResource("RectangleShape2D_0psqr")
 [node name="BottomLeft" type="Area2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(43, 0)
-collision_layer = 4
-collision_mask = 8
+collision_layer = 8
+collision_mask = 2
 
 [node name="sprite" type="Sprite2D" parent="BottomLeft"]
 texture_filter = 1

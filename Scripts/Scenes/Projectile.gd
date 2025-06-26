@@ -1,10 +1,10 @@
-extends Node2D
+extends Area2D
 class_name Projectile
 
-enum TargetHit {
-	ENEMY = 0,
-	OUT_OF_BOUNDS = 2,
-	BUNKER = 8,
+enum TargetHitType {
+	ENEMY = 2,
+	BUNKER = 8,	
+	OUT_OF_BOUNDS = 16,
 }
 
 enum SpawnSource {
@@ -12,29 +12,43 @@ enum SpawnSource {
 	ENEMY,
 }
 
-signal projectile_hit(target: int)
+signal projectile_hit(target: int, area: Area2D)
+
+@export var speed: float = 350.0
 
 @onready var sprite: Sprite2D = $Sprite2D
 
-@export var speed: float = 150.0
-var source: int
+var _spawn_source: int = SpawnSource.PLAYER
 
 func _ready() -> void:
 	top_level = true
 
+func setCollisionMask(layer: int, val: bool) -> void:
+	var area: Area2D = get_node("Area2D")
+	area.set_collision_mask_value(layer, val)
+
+func setSpawnSource(spawnSource: SpawnSource) -> void:
+	_spawn_source = spawnSource
+
+func getSpawnSource() -> SpawnSource:
+	return _spawn_source
+
 func _process(delta: float) -> void:
-	global_position.y -= speed * delta
-
-func _on_area_2d_area_entered(area: Area2D) -> void:
-	print(area.collision_mask)
-	var target: TargetHit
-	# Out of Bounds Collision
-	if area.collision_mask == 2:
-		target = TargetHit.OUT_OF_BOUNDS
-	# Bunker
-	elif area.collision_mask == 8:
-		target = TargetHit.BUNKER
+	if _spawn_source == SpawnSource.PLAYER:
+		global_position.y -= speed * delta
 	else:
-		target = TargetHit.ENEMY
+		global_position.y += speed * delta
 
-	projectile_hit.emit(target)
+func _on_area_2d_entered(area: Area2D) -> void:
+	var target: TargetHitType
+
+	if area.collision_layer == 2:
+		target = TargetHitType.ENEMY
+	# Bunker
+	elif area.collision_layer == 8:
+		target = TargetHitType.BUNKER
+	# Out of Bounds Collision
+	elif area.collision_layer == 16:
+		target = TargetHitType.OUT_OF_BOUNDS
+
+	projectile_hit.emit(target, area)

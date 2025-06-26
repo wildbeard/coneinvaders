@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://iwwyyctnpgcg"]
+
+[ext_resource type="Script" uid="uid://brimt7riaqmii" path="res://Scripts/Scenes/MainMenu.gd" id="1_tt5f1"]
+
+[node name="MainMenu" type="Node2D"]
+script = ExtResource("1_tt5f1")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Button" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 520.0
+offset_top = 344.0
+offset_right = 616.0
+offset_bottom = 375.0
+text = "Start Game"

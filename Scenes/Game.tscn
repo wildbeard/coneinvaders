@@ -17,8 +17,8 @@ script = ExtResource("1_iukft")
 position = Vector2(581, 583)
 
 [node name="Area2D" type="Area2D" parent="."]
-collision_layer = 2
-collision_mask = 2
+collision_layer = 16
+collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(578, -10)
@@ -36,20 +36,73 @@ shape = SubResource("RectangleShape2D_j5yw3")
 position = Vector2(1162, 324)
 shape = SubResource("RectangleShape2D_j5yw3")
 
-[node name="Node2D" parent="." instance=ExtResource("3_j5yw3")]
+[node name="EnemySpawnMarker" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(16, 16)
+
+[node name="Bunker" parent="." instance=ExtResource("3_j5yw3")]
 position = Vector2(496, 512)
 
-[node name="Node2D2" parent="." instance=ExtResource("3_j5yw3")]
+[node name="Bunker2" parent="." instance=ExtResource("3_j5yw3")]
 position = Vector2(688, 512)
 
-[node name="Node2D3" parent="." instance=ExtResource("3_j5yw3")]
+[node name="Bunker3" parent="." instance=ExtResource("3_j5yw3")]
 position = Vector2(880, 512)
 
-[node name="Node2D4" parent="." instance=ExtResource("3_j5yw3")]
+[node name="Bunker4" parent="." instance=ExtResource("3_j5yw3")]
 position = Vector2(1072, 512)
 
-[node name="Node2D5" parent="." instance=ExtResource("3_j5yw3")]
+[node name="Bunker5" parent="." instance=ExtResource("3_j5yw3")]
 position = Vector2(304, 512)
 
-[node name="Node2D6" parent="." instance=ExtResource("3_j5yw3")]
+[node name="Bunker6" parent="." instance=ExtResource("3_j5yw3")]
 position = Vector2(112, 512)
+
+[node name="Control" type="Control" parent="."]
+top_level = true
+layout_mode = 3
+anchors_preset = 0
+offset_right = 192.0
+offset_bottom = 128.0
+
+[node name="PanelContainer" type="PanelContainer" parent="Control"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_right = 192.0
+offset_bottom = 128.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="GridContainer" type="GridContainer" parent="Control/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/PanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="ScoreLabel" type="Label" parent="Control/PanelContainer/MarginContainer/GridContainer/HBoxContainer"]
+layout_mode = 2
+text = "Score:"
+
+[node name="Score" type="Label" parent="Control/PanelContainer/MarginContainer/GridContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Control/PanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="LivesLabel" type="Label" parent="Control/PanelContainer/MarginContainer/GridContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Lives:"
+
+[node name="Lives" type="Label" parent="Control/PanelContainer/MarginContainer/GridContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
