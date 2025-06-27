@@ -46,6 +46,9 @@ func _shoot() -> void:
 	add_child(projectile)
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
+	if area is Projectile:
+		area.queue_free()
+
 	player_hit.emit()
 
 func _on_projectile_hit(hitType: Projectile.TargetHitType, targetHit: Area2D, projectile: Projectile) -> void:

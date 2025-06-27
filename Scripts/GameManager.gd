@@ -15,12 +15,19 @@ func startGame() -> void:
 	score = 0
 	lives = 3
 	updateScore(0)
-	updateLives(0)
+	updateLives(lives)
 
 func updateScore(val: int) -> void:
 	score += val
 	update_score.emit(score)
 
 func updateLives(val: int) -> void:
-	lives += val
-	update_lives.emit(lives)
+	lives = val
+
+	if lives <= 0:
+		_game_over()
+	else:
+		update_lives.emit(lives)
+
+func _game_over() -> void:
+	startGame()

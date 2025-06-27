@@ -54,8 +54,8 @@ func _enemies_shoot_timer() -> void:
 		return
 
 	var timeout: float = enemyFireInterval - (currentRound * 0.25)
-	var shoot: Callable = func(isMoving: bool):
-		if !isMoving:
+	var shoot: Callable = func():
+		if !_isMoving:
 			return
 
 		var e: Enemy
@@ -68,7 +68,7 @@ func _enemies_shoot_timer() -> void:
 
 	# We _want_ this to be async so it does not impede the movement.
 	# If we await the timer it blocks the movement until the timer is finished.
-	get_tree().create_timer(timeout).timeout.connect(shoot.bind(_isMoving), CONNECT_ONE_SHOT)
+	get_tree().create_timer(timeout).timeout.connect(shoot, CONNECT_ONE_SHOT)
 
 func _enemies_move_timer(initial: bool) -> void:
 	if !_isMoving:
