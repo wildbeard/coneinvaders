@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://bu1v7ay6sneg5"]
+[gd_scene load_steps=7 format=3 uid="uid://bu1v7ay6sneg5"]
 
 [ext_resource type="Script" uid="uid://cxb07jid2ytr2" path="res://Scripts/Scenes/Game.gd" id="1_iukft"]
 [ext_resource type="PackedScene" uid="uid://bjvdbspnr3hoh" path="res://Scenes/Player.tscn" id="2_gl6un"]
+[ext_resource type="Script" uid="uid://dkesd548s3uo5" path="res://Scripts/EnemyController.gd" id="2_kldst"]
 [ext_resource type="PackedScene" uid="uid://cjur2du3p5op6" path="res://Scenes/Bunker.tscn" id="3_j5yw3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gl6un"]
@@ -12,6 +13,11 @@ size = Vector2(20, 664)
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_iukft")
+
+[node name="EnemyController" type="Node" parent="." node_paths=PackedStringArray("enemySpawnMarker")]
+script = ExtResource("2_kldst")
+enemySpawnMarker = NodePath("../EnemySpawnMarker")
+metadata/_custom_type_script = "uid://dkesd548s3uo5"
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("2_gl6un")]
 position = Vector2(581, 583)

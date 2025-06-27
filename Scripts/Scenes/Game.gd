@@ -6,9 +6,6 @@ const COLUMNS: int = 10
 
 var _enemies: Array[Enemy] = []
 var _round: int = 1
-var _interval: float = 2.25
-var _horizontalRound: int = 0
-var _horizontalDir: int = 1
 var _startingPos: Vector2
 
 func _ready() -> void:
@@ -21,33 +18,7 @@ func _ready() -> void:
 	_start()
 
 func _start() -> void:
-	_enemies_move_timer(true)
-
-func _enemies_move_timer(initial: bool) -> void:
-	var timeout: float = _interval - (_round * -0.25) if !initial else 0.5
-	get_tree()\
-		.create_timer(timeout)\
-		.timeout\
-		.connect(Callable(_progress_enemies).bind(initial), CONNECT_ONE_SHOT)
-
-func _progress_enemies(initial: bool) -> void:
-	var pos: Vector2 = %EnemySpawnMarker.global_position
-	var xToMove: int = 65
-
-	if !initial && _horizontalRound == -1:
-		_horizontalDir = 1
-		xToMove = 0
-		pos.y += 48
-	elif _horizontalRound + 1 == 8:
-		_horizontalDir = -1
-		xToMove = 0
-		pos.y += 48
-
-	pos.x = pos.x + (xToMove * _horizontalDir)
-	%EnemySpawnMarker.global_position = pos
-	_horizontalRound = _horizontalRound + _horizontalDir
-	print(_horizontalRound)
-	_enemies_move_timer(false)
+	$EnemyController.start_movement(true)
 
 func _default_state() -> void:
 	%Score.text = "0"
