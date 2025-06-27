@@ -28,10 +28,14 @@ func _on_area_2d_area_entered(area: Area2D, section: Area2D) -> void:
 	var texturePath: String = "res://Assets/Sprites/bunker/"
 	var dmg: int = 1
 
-	# 1. get_parent makes me sad but I am noob
-	# 2. We want to fully remove the bunker's section if an
-	# enemy touches it. Else just do 1 dmg
-	if area.get_parent() is Enemy:
+	# Here we see an issue with using get_parent()
+	# Since area IS the top level node in Projectile, get_parent() returns the
+	# parent OF Projectile. In this case that would be the player or an enemy.
+	# However, in the scenario where the enemy collides with the bunker, area
+	# is a child of the enemy, so get_parent() returns the Enemy object. 
+	if area is Projectile:
+		area.queue_free()
+	elif area.get_parent() is Enemy:
 		dmg = 999
 
 	match section:

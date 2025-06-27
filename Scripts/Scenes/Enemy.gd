@@ -19,6 +19,9 @@ func shoot() -> void:
 	var projectile: Projectile = PROJECTILE_SCENE.instantiate()
 	projectile.setSpawnSource(Projectile.SpawnSource.ENEMY)
 	projectile.setCollisionMask(2, false)
+	projectile.global_position.x = global_position.x + sprite.texture.get_width() / 5.5
+	projectile.global_position.y = global_position.y + 10
+	add_child(projectile)
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	if area is Projectile \

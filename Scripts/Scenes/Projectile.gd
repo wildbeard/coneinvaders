@@ -24,8 +24,7 @@ func _ready() -> void:
 	top_level = true
 
 func setCollisionMask(layer: int, val: bool) -> void:
-	var area: Area2D = get_node("Area2D")
-	area.set_collision_mask_value(layer, val)
+	set_collision_mask_value(layer, val)
 
 func setSpawnSource(spawnSource: SpawnSource) -> void:
 	_spawn_source = spawnSource

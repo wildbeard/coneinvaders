@@ -17,6 +17,7 @@ script = ExtResource("1_iukft")
 [node name="EnemyController" type="Node" parent="." node_paths=PackedStringArray("enemySpawnMarker")]
 script = ExtResource("2_kldst")
 enemySpawnMarker = NodePath("../EnemySpawnMarker")
+enemyFireInterval = 3.25
 metadata/_custom_type_script = "uid://dkesd548s3uo5"
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("2_gl6un")]
