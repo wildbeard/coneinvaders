@@ -4,7 +4,7 @@ class_name EnemyController
 @export var enemySpawnMarker: Marker2D
 @export var interval: float = 2.25
 
-const VerticalStep: int = 48
+const VerticalStep: int = 38
 const HorizontalStep: int = 65
 const MaxHorizontalSteps: int = 8
 
