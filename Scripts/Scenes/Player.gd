@@ -12,6 +12,7 @@ const PROJECTILE_SCENE: PackedScene = preload("res://Scenes/Projectile.tscn")
 const BASE_TEXTURE = preload("res://Assets/Sprites/cudaW.png")
 const HIT_TEXTURE = preload("res://Assets/Sprites/cudaGasm.png")
 const BUNKER_HIT = preload("res://Assets/Sprites/cudaWTF.png")
+const MISS_TEXTURE = preload("res://Assets/Sprites/cudaPotato.png")
 
 var hasProjectileOut: bool = false
 
@@ -57,7 +58,7 @@ func _on_projectile_hit(hitType: Projectile.TargetHitType, targetHit: Area2D, pr
 		texture = BUNKER_HIT
 		_bunker_hit()
 	elif hitType == Projectile.TargetHitType.OUT_OF_BOUNDS:
-		print(':)')
+		texture = MISS_TEXTURE
 		hasProjectileOut = false
 
 	if texture:

@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://b35akwjm6s1jp"]
 
 [ext_resource type="Script" uid="uid://csmds32s77pvt" path="res://Scripts/Scenes/Enemy.gd" id="1_m1htj"]
-[ext_resource type="Texture2D" uid="uid://7w82awgtx65" path="res://icon.svg" id="2_wovta"]
+[ext_resource type="Texture2D" uid="uid://be46iub61l17" path="res://Assets/Sprites/cudaCone.png" id="2_wovta"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xeo28"]
 size = Vector2(34, 34)
