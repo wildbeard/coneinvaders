@@ -26,7 +26,14 @@ func _on_area_2d_area_entered(area: Area2D, section: Area2D) -> void:
 	var hpKey: String
 	var texture: Texture
 	var texturePath: String = "res://Assets/Sprites/bunker/"
-	
+	var dmg: int = 1
+
+	# 1. get_parent makes me sad but I am noob
+	# 2. We want to fully remove the bunker's section if an
+	# enemy touches it. Else just do 1 dmg
+	if area.get_parent() is Enemy:
+		dmg = 999
+
 	match section:
 		topLeft:
 			hp = sectionHp.topLeft
@@ -47,10 +54,10 @@ func _on_area_2d_area_entered(area: Area2D, section: Area2D) -> void:
 			texturePath += "bottom_right_dmg_"
 			flipped = true
 
-	if hp - 1 <= 0:
+	if hp - dmg <= 0:
 		section.queue_free()
 	else:
-		hp = hp - 1
+		hp = hp - dmg
 		texturePath += str(hp - 1) + ".png"
 		sectionHp[hpKey] = hp
 		sprite.texture = load(texturePath)
