@@ -20,6 +20,7 @@ var _isMoving: bool = false
 var _horizontalDir: int = 1
 var _horizontalRound: int = 0
 var _enemies: Array[Enemy] = []
+var _projectiles: Dictionary = {}
 
 func initialize() -> void:
 	var startingPos: Vector2 = enemySpawnMarker.global_position
@@ -33,6 +34,7 @@ func initialize() -> void:
 			e.global_position.x = startingPos.x + (64 * c)
 			e.global_position.y = startingPos.y + (48 * r)
 			e.score_given = e.score_given * (ROWS - floor(r / 2))
+			e.enemy_hit.connect(_on_enemy_hit.bind(e))
 
 			_enemies.push_back(e)
 			# Add them to the marker so we can move the marker later
@@ -47,7 +49,7 @@ func start_movement(initial: bool) -> void:
 	_enemies_shoot_timer.call_deferred()
 
 func _enemies_shoot_timer() -> void:
-	# We can't type Array[Enemy] here due to some weird shit under the hood. idk
+	# We can't type Array[Enemy], or e: Enemy, here due to some weird shit under the hood. idk
 	var validEnemies: Array = _enemies.filter(func(e): return is_instance_valid(e))
 
 	if !_isMoving || validEnemies.is_empty():
@@ -58,12 +60,24 @@ func _enemies_shoot_timer() -> void:
 		if !_isMoving:
 			return
 
-		var e: Enemy
+		var e: Enemy = null
+		var i: int = 0
 
-		while !e:
-			e = validEnemies.pick_random()
+		while !e || i < 99:
+			var tmp = validEnemies.pick_random()
 
-		e.shoot()
+			if is_instance_valid(tmp):
+				e = tmp
+
+			i += 1
+
+		var projectile: Projectile = e.shoot()
+
+		if !_projectiles.has(e.get_instance_id()):
+			_projectiles[e.get_instance_id()] = []
+
+		_projectiles[e.get_instance_id()].push_back(projectile)
+		add_child(projectile)
 		_enemies_shoot_timer()
 
 	# We _want_ this to be async so it does not impede the movement.
@@ -95,3 +109,13 @@ func _progress_enemies(initial: bool) -> void:
 
 	if _isMoving:
 		_enemies_move_timer.call_deferred(false)
+
+func _on_enemy_hit(e: Enemy) -> void:
+	var id = e.get_instance_id()
+
+	if _projectiles.has(id):
+		for p in _projectiles[id]:
+			if is_instance_valid(p):
+				p.queue_free()
+
+	e.queue_free()
