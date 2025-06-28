@@ -32,8 +32,10 @@ func _on_update_lives(lives: int) -> void:
 	%Lives.text = str(lives)
 
 func _on_player_hit() -> void:
+	player.disableMovement()
 	enemyController.stop_movement()
 	GlobalGameManager.updateLives(GlobalGameManager.lives - 1)
 	await get_tree().create_timer(2).timeout
 	player.global_position = _playerStartingPos
+	player.enableMovement()
 	enemyController.start_movement(false)

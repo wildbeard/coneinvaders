@@ -15,6 +15,7 @@ const BUNKER_HIT = preload("res://Assets/Sprites/cudaWTF.png")
 const MISS_TEXTURE = preload("res://Assets/Sprites/cudaPotato.png")
 
 var hasProjectileOut: bool = false
+var canMove: bool = true
 
 func _ready() -> void:
 	pass
@@ -28,11 +29,18 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity = velocity.move_toward(Vector2.ZERO, ACCELERATION * delta)
 
-	move_and_slide()
+	if canMove:
+		move_and_slide()
 
 	if !hasProjectileOut && Input.is_action_just_pressed("shoot"):
 		hasProjectileOut = true
 		_shoot()
+
+func disableMovement() -> void:
+	canMove = false
+
+func enableMovement() -> void:
+	canMove = true
 
 func _shoot() -> void:
 	var projectile: Projectile = PROJECTILE_SCENE.instantiate()
