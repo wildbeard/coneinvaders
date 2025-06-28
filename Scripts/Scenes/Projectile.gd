@@ -39,6 +39,9 @@ func _process(delta: float) -> void:
 		global_position.y += speed * delta
 
 func _on_area_2d_entered(area: Area2D) -> void:
+	if area is Projectile:
+		return
+
 	var target: TargetHitType
 
 	if area.collision_layer == 2:
